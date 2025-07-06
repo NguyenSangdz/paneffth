@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PANEL IOS Login</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      background-color: #111;
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      color: #ccc;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      position: relative;
+    }
+    .logo {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 2px;
+      letter-spacing: 1px;
+      background: linear-gradient(270deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff, #ff0080, #ff0000);
+      background-size: 1800% 1800%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: wave 5s linear infinite;
+    }
+    .sub-logo {
+      text-align: center;
+      font-size: 12px;
+      color: white;
+      text-shadow: 0 0 5px red;
+      margin-bottom: 10px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #222;
+      color: #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(270deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff, #ff0080, #ff0000);
+      background-size: 1800% 1800%;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+      animation: wave 5s linear infinite;
+    }
+    @keyframes wave {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    .hidden {
+      display: none;
+    }
+    .back-btn {
+      color: white;
+      text-decoration: none;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 14px;
+    }
+    .toggle-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      align-items: center;
+    }
+    .status-text {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+      color: red;
+    }
+    /* Switch style */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #444;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #ff0000;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="page1">
+    <div class="logo">PANEL IOS</div>
+    <div class="sub-logo">@SangNguyen⚡️</div>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <div id="loginStatus" class="status-text"></div>
+  </div>
+
+  <div class="container hidden" id="page2">
+    <a href="#" class="back-btn" onclick="goBack()">← Back</a>
+    <div class="logo">PANEL IOS</div>
+    <div class="sub-logo">@SangNguyen⚡️</div>
+
+    <div class="toggle-container">
+      <span>REGEDIT V1</span>
+      <label class="switch">
+        <input type="checkbox" onchange="handleToggle(this)">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="toggle-container">
+      <span>REGEDIT V2</span>
+      <label class="switch">
+        <input type="checkbox" onchange="handleToggle(this)">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="toggle-container">
+      <span>AimLock 50%</span>
+      <label class="switch">
+        <input type="checkbox" onchange="handleToggle(this)">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="toggle-container">
+      <span>Macro Boot V1</span>
+      <label class="switch">
+        <input type="checkbox" onchange="handleToggle(this)">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="toggle-container">
+      <span>SENSITIVITY Y</span>
+      <label class="switch">
+        <input type="checkbox" onchange="handleToggle(this)">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="toggle-container">
+      <span>Sniper Scope</span>
+      <label class="switch">
+        <input type="checkbox" onchange="handleToggle(this)">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <button id="ffButton">FFTH X FFMAX</button>
+
+    <div id="status" class="status-text"></div>
+  </div>
+
+  <script>
+    const loginBtn = document.getElementById('loginBtn');
+    const loginStatus = document.getElementById('loginStatus');
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+
+    loginBtn.addEventListener('click', () => {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if (username === "Sangdz" && password === "1809") {
+        loginStatus.innerText = "Loading...";
+        setTimeout(() => {
+          page1.classList.add('hidden');
+          page2.classList.remove('hidden');
+        }, 2000);
+      } else {
+        document.getElementById('password').value = "";
+        document.getElementById('password').placeholder = "Sai pass hoặc user";
+      }
+    });
+
+    function goBack() {
+      page2.classList.add('hidden');
+      page1.classList.remove('hidden');
+      loginStatus.innerText = "";
+    }
+
+    function handleToggle(toggle) {
+      const status = document.getElementById('status');
+      status.innerText = "Loading...";
+      const isChecked = toggle.checked;
+      const delay = isChecked ? 2000 : 1000;
+      setTimeout(() => {
+        status.innerText = isChecked ? "On..." : "Off";
+      }, delay);
+    }
+
+    // Nút FFTH X FFMAX không chuyển trang
+    document.getElementById('ffButton').addEventListener('click', () => {
+      // Không làm gì cả
+    });
+  </script>
+
+</body>
+</html>
